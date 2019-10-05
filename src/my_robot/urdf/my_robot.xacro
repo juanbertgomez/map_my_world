@@ -10,42 +10,6 @@
     <child link="chassis" />
   </joint>
 
-  <!-- joint left wheel -->
-  <joint type="continuous" name="left_wheel_hinge">
-    <origin xyz="0 0.15 0" rpy="0 0 0"/>
-    <child link="left_wheel"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
-  </joint>
-
-  <!-- joint right wheel -->
-  <joint type="continuous" name="right_wheel_hinge">
-    <origin xyz="0 -0.15 0" rpy="0 0 0"/>
-    <child link="right_wheel"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="10000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
-  </joint>
-
-  <!-- joint camera -->
-  <joint type="fixed" name="camera_joint">
-    <origin xyz="0.2 0 0" rpy="0 0 0"/>
-    <child link="camera"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-  </joint>
-
-  <!-- joint hokuyo -->
-  <joint type="fixed" name="hokuyo_joint">
-    <origin xyz="0.15 0 0.1" rpy="0 0 0"/>
-    <child link="hokuyo"/>
-    <parent link="chassis"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-  </joint>
-
   <link name='chassis'>
     <pose>0 0 0.1 0 0 0</pose>
 
@@ -101,12 +65,10 @@
         <sphere radius="0.05"/>
       </geometry>
     </visual>
-
   </link>
 
   <!-- left wheel -->
   <link name='left_wheel'>
-
   <inertial>
     <mass value="5.0"/>
     <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
@@ -130,12 +92,19 @@
         <cylinder radius="0.1" length="0.05"/>
       </geometry>
     </visual>
-
   </link>
+  <!-- joint left wheel -->
+  <joint type="continuous" name="left_wheel_hinge">
+    <origin xyz="0 0.15 0" rpy="0 0 0"/>
+    <child link="left_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
 
   <!-- rigth wheel -->
   <link name='right_wheel'>
-
     <inertial>
       <mass value="5.0"/>
       <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
@@ -159,12 +128,19 @@
         <cylinder radius="0.1" length="0.05"/>
       </geometry>
     </visual>
-
   </link>
+  <!-- joint right wheel -->
+  <joint type="continuous" name="right_wheel_hinge">
+    <origin xyz="0 -0.15 0" rpy="0 0 0"/>
+    <child link="right_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
 
   <!-- camera -->
   <link name="camera">
-
     <inertia>
       <mass value="0.1"/>
       <origin xyz="0.05 0.05 0.05" rpy="0 0 0"/>
@@ -188,11 +164,17 @@
         <box size="0.05 0.05 0.05"/>
       </geometry>
     </visual>
-
   </link>
+  <!-- joint camera -->
+  <joint type="fixed" name="camera_joint">
+    <origin xyz="0.2 0 0" rpy="0 0 0"/>
+    <child link="camera"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
 
+  <!-- hoyuko -->
   <link name="hokuyo">
-
     <inertia>
       <mass value="1e-5"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -205,16 +187,24 @@
 
     <collision name='hokuyo_collision'>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.1 0.1"/>
+      <geometry> 
+      <mesh filename='package://my_robot/meshes/hokuyo.dae'/>
       </geometry>
     </collision>
 
     <visual name='hokuyo_visual'>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry filename='package://my_robot/meshes/hokuyo.dae'/>
+      <geometry> 
+        <mesh filename='package://my_robot/meshes/hokuyo.dae'/>
+      </geometry>
      </visual>
-
   </link>
+  <!-- joint hokuyo -->
+  <joint type="fixed" name="hokuyo_joint">
+    <origin xyz="0.15 0 0.1" rpy="0 0 0"/>
+    <child link="hokuyo"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
 
 </robot>
