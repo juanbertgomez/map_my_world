@@ -35,6 +35,9 @@
       <geometry>
         <box size=".4 .2 .1"/>
       </geometry>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
     </visual>
 
 
@@ -91,6 +94,9 @@
       <geometry>
         <cylinder radius="0.1" length="0.05"/>
       </geometry>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+     </material>
     </visual>
   </link>
   <!-- joint left wheel -->
@@ -127,6 +133,9 @@
       <geometry>
         <cylinder radius="0.1" length="0.05"/>
       </geometry>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
     </visual>
   </link>
   <!-- joint right wheel -->
