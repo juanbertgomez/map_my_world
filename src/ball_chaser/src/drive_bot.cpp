@@ -4,8 +4,11 @@
 
 ros::Publisher motor_command_publisher;
 
-bool handle_drive_request() {
-    
+bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Request& res) 
+{
+    ROS_INFO("DriveTOTarget received - j1:%1.2f, j2%1.2f", (float)req.linear_x, (float)req.angular_z;
+
+    return true;
 }
 
 int main(int argc, char** argv)
@@ -20,9 +23,10 @@ int main(int argc, char** argv)
 
     // TODO: Define a drive /ball_chaser/command_robot service with a handle_drive_request callback function
     ros::ServiceServer service = n.advertiseService("/ball_chaser/command_robot", handle_drive_request);
+    ROS_INFO("Ready to move the bot!")
 
     //TODO: Handle ROS communication events
-    //ros::spin()
+    ros::spin()
 
     return 0;
 }
