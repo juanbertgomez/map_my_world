@@ -17,6 +17,10 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser:
     //Publish drive commands
     motor_command_publisher.publish(motor_command);
 
+    // Return a response message
+    res.msg_feedback = "DriveTOTarget processed - j1:%1.2f, j2%1.2f", (float)req.linear_x, (float)req.angular_z;
+    ROS_INFO_STREAM(res.msg_feedback);
+
     return true;
 }
 
