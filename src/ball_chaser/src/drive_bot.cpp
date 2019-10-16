@@ -8,6 +8,15 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser:
 {
     ROS_INFO("DriveTOTarget received - j1:%1.2f, j2%1.2f", (float)req.linear_x, (float)req.angular_z);
 
+    geometry_msgs::Twist motor_command;
+
+    //Set velocity open message arrival
+    motor_command.linear.x = req.linear_x;
+    motor_command.angular.z = req.angular_z;
+
+    //Publish drive commands
+    motor_command_publisher.publish(motor_command);
+
     return true;
 }
 
