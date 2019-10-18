@@ -26,7 +26,7 @@ void process_image_callback(const sensor_msgs::Image img)
     int white_pixel = 255;
     enum Direction { left, forward, rigth, stop };
     Direction drive_direction = stop;
-    int image_length = img.width * img.step;
+    int image_length = img.step;
 
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
@@ -36,7 +36,7 @@ void process_image_callback(const sensor_msgs::Image img)
         if(image_length / i < 7/2) 
         {
             drive_direction = left;
-        } else if (image_lengt/ i < 7/5)
+        } else if (image_length/ i < 7/5)
         {
             drive_direction = forward;    
         } else {
