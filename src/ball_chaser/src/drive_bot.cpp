@@ -6,7 +6,7 @@ ros::Publisher motor_command_publisher;
 
 bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Request& res) 
 {
-    ROS_INFO("DriveTOTarget received - j1:%1.2f, j2%1.2f", (float)req.linear_x, (float)req.angular_z);
+    ROS_INFO("DriveToTarget received - j1:%1.2f, j2%1.2f", (float)req.linear_x, (float)req.angular_z);
 
     geometry_msgs::Twist motor_command;
 
