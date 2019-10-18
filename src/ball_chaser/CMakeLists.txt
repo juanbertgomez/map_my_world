@@ -130,7 +130,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(drive_bot src/drive_bot.cpp)
-add_executable(drive_bot src/proccess_image.cpp)
+add_executable(process_image src/proccess_image.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
