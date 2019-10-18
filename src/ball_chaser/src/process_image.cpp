@@ -33,14 +33,21 @@ void process_image_callback(const sensor_msgs::Image img)
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
     for (int i=0; < image_length; i++) {
-        if(image_length / i < 7/2) 
-        {
-            drive_direction = left;
-        } else if (image_length/ i < 7/5)
-        {
-            drive_direction = forward;    
-        } else {
-            drive_direction = rigth;
+        bool white_detetected  = img.data[i] == white_pixel;
+        
+        if (white_detetected) {
+            if(image_length / i < 7/2) 
+            {
+                drive_direction = left;
+                break;
+            } else if (image_length/ i < 7/5)
+            {
+                drive_direction = forward;    
+                break;
+            } else {
+                drive_direction = rigth;
+                break;
+            }
         }
         
     switch(drive_direction)
