@@ -32,8 +32,6 @@ void drive_robot(float lin_x, float ang_z)
 void process_image_callback(const sensor_msgs::Image img)
 {
 
-    ROS_INFO("process_image_callback");
-    
     int white_pixel = 255;
     int image_length = img.step;
     int image_heigth = img.height;
@@ -52,21 +50,22 @@ void process_image_callback(const sensor_msgs::Image img)
                 ROS_INFO("Direction status", (float)direction;
             }
         }
+    }
     
-        if (white_detetected) {
-            if(image_length / i < 7/2)
-            {
-                drive_direction = left;
-                break;
-            } else if (image_length/ i < 7/5)
-            {
-                drive_direction = forward;    
-                break;
-            } else {
-                drive_direction = rigth;
-                break;
-            }
-        }
+        // if (white_detetected) {
+        //     if(image_length / i < 7/2)
+        //     {
+        //         drive_direction = left;
+        //         break;
+        //     } else if (image_length/ i < 7/5)
+        //     {
+        //         drive_direction = forward;    
+        //         break;
+        //     } else {
+        //         drive_direction = rigth;
+        //         break;
+        //     }
+        // }
         
     switch(drive_direction)
         {
@@ -75,7 +74,6 @@ void process_image_callback(const sensor_msgs::Image img)
             case forward : drive_robot(0.5, 0); break;
             case rigth : drive_robot(0.5, 0.5);  break;
         }
-    }
 }
 
 int main(int argc, char** argv)
