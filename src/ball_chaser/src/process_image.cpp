@@ -38,7 +38,7 @@ void process_image_callback(const sensor_msgs::Image img)
         bool white_detetected  = img.data[i] == white_pixel;
         
         if (white_detetected) {
-            if(image_length / i < 7/2) 
+            if(image_length / i < 7/2)
             {
                 drive_direction = left;
                 break;
@@ -73,7 +73,8 @@ int main(int argc, char** argv)
 
     // Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function
     ros::Subscriber sub1 = n.subscribe("/camera/rgb/image_raw", 10, process_image_callback);
-
+    ROS_INFO("Ready to see things!");
+    
     // Handle ROS communication events
     ros::spin();
 
