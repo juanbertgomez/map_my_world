@@ -14,8 +14,8 @@ void drive_robot(float lin_x, float ang_z)
     // TODO: Request a service and pass the velocities to it to drive the robot
     geometry_msgs::Twist motor_command;
 
-    motor_command.linear_x = lin_x;
-    motor_command.angular_z = ang_z;
+    motor_command.linear.x = lin_x;
+    motor_command.angular.z = ang_z;
 
     //Publish drive commands
     motor_command_publisher.publish(motor_command);
@@ -35,17 +35,24 @@ void process_image_callback(const sensor_msgs::Image img)
     ROS_INFO("process_image_callback");
     
     int white_pixel = 255;
+    int image_length = img.step;
+    int image_heigth = img.height;
     enum Direction { left, forward, rigth, stop };
     Direction drive_direction = stop;
-    int image_length = img.step;
+    float direction = 0.0;
 
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
-    for (int i=0; i < image_length; i++) {
-        bool white_detetected  = img.data[i] == white_pixel;
-        
+    for (int i = 0; i < image_heigth; i++) {
+        for (int j = 0; j < image_length; j++) {
+            if(img.data[i * image_length + j] == white_pixel) {
+                direction += j - image_length;            
+                ROS_INFO("Direction status", (float)direction;
+            }
+        }
+    
         if (white_detetected) {
             if(image_length / i < 7/2)
             {
