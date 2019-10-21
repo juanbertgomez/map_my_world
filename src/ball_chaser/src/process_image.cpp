@@ -11,13 +11,17 @@ void drive_robot(float lin_x, float ang_z)
 {
     ROS_INFO("DriveToTarget received from process_image_callback- j1:%1.2f, j2%1.2f", (float)lin_x, (float)ang_z);
     // TODO: Request a service and pass the velocities to it to drive the robot
-    ball_chaser::DriveToTarget srv;
+    geometry_msgs::Twist motor_command;
 
     srv.request.linear_x = lin_x;
     srv.request.angular_z = ang_z;
 
     //Publish drive commands
     motor_command_publisher.publish(motor_command);
+    
+    // Return a response message
+    res.msg_feedback = "DriveToTarget processed from process_image_callback");
+    ROS_INFO_STREAM(res.msg_feedback);
 
     if (!client.call(srv))
         ROS_ERROR("Failed to call service command_robot");
