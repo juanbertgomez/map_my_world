@@ -4,6 +4,7 @@
 
 // Define a global client that can request services
 ros::ServiceClient client;
+ros::Publisher motor_command_publisher;
 
 // This function calls the command_robot service to drive the robot in the specified direction
 void drive_robot(float lin_x, float ang_z)
@@ -14,6 +15,9 @@ void drive_robot(float lin_x, float ang_z)
 
     srv.request.linear_x = lin_x;
     srv.request.angular_z = ang_z;
+
+    //Publish drive commands
+    motor_command_publisher.publish(motor_command);
 
     if (!client.call(srv))
         ROS_ERROR("Failed to call service command_robot");
@@ -74,6 +78,9 @@ int main(int argc, char** argv)
     // Subscribe to /camera/rgb/image_raw topic to read the image data inside the process_image_callback function
     ros::Subscriber sub1 = n.subscribe("/camera/rgb/image_raw", 10, process_image_callback);
     ROS_INFO("Ready to see things!");
+
+    //Advertise motor commands
+    motor_command_publisher = n.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
     
     // Handle ROS communication events
     ros::spin();
