@@ -1,4 +1,5 @@
 #include "ros/ros.h"
+#include "geometry_msgs/Twist.h"
 #include "ball_chaser/DriveToTarget.h"
 #include <sensor_msgs/Image.h>
 
@@ -13,18 +14,18 @@ void drive_robot(float lin_x, float ang_z)
     // TODO: Request a service and pass the velocities to it to drive the robot
     geometry_msgs::Twist motor_command;
 
-    srv.request.linear_x = lin_x;
-    srv.request.angular_z = ang_z;
+    motor_command.linear_x = lin_x;
+    motor_command.angular_z = ang_z;
 
     //Publish drive commands
     motor_command_publisher.publish(motor_command);
     
     // Return a response message
-    res.msg_feedback = "DriveToTarget processed from process_image_callback");
-    ROS_INFO_STREAM(res.msg_feedback);
+    // res.msg_feedback = "DriveToTarget processed from process_image_callback");
+    // ROS_INFO_STREAM(res.msg_feedback);
 
-    if (!client.call(srv))
-        ROS_ERROR("Failed to call service command_robot");
+    // if (!client.call(srv))
+    //     ROS_ERROR("Failed to call service command_robot");
 }
 
 // This callback function continuously executes and reads the image data
