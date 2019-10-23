@@ -2,6 +2,7 @@
 #include "geometry_msgs/Twist.h"
 #include "ball_chaser/DriveToTarget.h"
 #include <sensor_msgs/Image.h>
+#include <math.h>
 
 // Define a global client that can request services
 ros::ServiceClient client;
@@ -35,22 +36,22 @@ void process_image_callback(const sensor_msgs::Image img)
     int white_pixel = 255;
     int image_length = img.step;
     int image_heigth = img.height;
+    int step = 30;
     enum Direction { left, forward, rigth, stop };
     Direction drive_direction = stop;
-    float direction = 0.0;
-
+    int direction_setter = 0;
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
-    for (int i = 0; i < image_heigth; i++) {
-        for (int j = 0; j < image_length; j++) {
-            if(img.data[i * image_length + j] == white_pixel) {
-                direction += j - image_length;            
-                ROS_INFO("Direction status", (float)direction;
+    for (int i = 0; i < image_heigth; i=i+step) {
+        for (int j = 0; j < image_length; j=j+step) {
+            if(img.data[i + j] == white_pixel) {
+                direction_setter = j;
             }
         }
     }
+    ROS_INFO("Direction status - j1:%d, j2%d", (int)direction_setter, (int)image_length);
     
         // if (white_detetected) {
         //     if(image_length / i < 7/2)
@@ -67,13 +68,13 @@ void process_image_callback(const sensor_msgs::Image img)
         //     }
         // }
         
-    switch(drive_direction)
-        {
-            case stop  : drive_robot(0, 0);   break;
-            case left  : drive_robot(0.5, -0.5);   break;
-            case forward : drive_robot(0.5, 0); break;
-            case rigth : drive_robot(0.5, 0.5);  break;
-        }
+    // switch(drive_direction)
+    //     {
+    //         case stop  : drive_robot(0, 0);   break;
+    //         case left  : drive_robot(0.5, -0.5);   break;
+    //         case forward : drive_robot(0.5, 0); break;
+    //         case rigth : drive_robot(0.5, 0.5);  break;
+    //     }
 }
 
 int main(int argc, char** argv)
