@@ -39,18 +39,22 @@ void process_image_callback(const sensor_msgs::Image img)
     int step = 30;
     enum Direction { left, forward, rigth, stop };
     Direction drive_direction = stop;
-    int direction_setter = 0;
+    int white_color_reader= 0;
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
-    for (int i = 0; i < image_heigth; i=i+step) {
-        for (int j = 0; j < image_length; j=j+step) {
-            if(img.data[i + j] == white_pixel) {
-                direction_setter = j;
+    for (int i = 0; i < image_heigth; i++) {
+        for (int j = 0; j < image_length; j++) {
+            if(img.data[i * image_length + j] == white_pixel) {
+                white_color_reader = j;
             }
         }
     }
+
+    float white_color_relation = white_color_reader / image_length;
+
+    
     ROS_INFO("Direction status - j1:%d, j2%d", (int)direction_setter, (int)image_length);
     
         // if (white_detetected) {
