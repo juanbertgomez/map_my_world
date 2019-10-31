@@ -58,10 +58,10 @@ void process_image_callback(const sensor_msgs::Image img)
                 float white_color_side = j / image_width;
                 direction_controller(white_color_side);
                 
-                ROS_INFO("Direction status - j1:%d, j2%d", (int)white_color_side, (int)image_width));
-                
+                ROS_INFO("Direction status - j1:%d, j2%d", (int)white_color_side, (int)image_width);
+
             } else {
-                drive_direction(0, 0);
+                drive_robot(0, 0);
             }
         }
     }    
