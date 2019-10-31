@@ -34,51 +34,45 @@ void process_image_callback(const sensor_msgs::Image img)
 {
 
     int white_pixel = 255;
-    int image_length = img.step;
+    int image_step = img.step;
+    int image_width = img.width;
     int image_heigth = img.height;
     int step = 30;
     enum Direction { left, forward, rigth, stop };
     Direction drive_direction = stop;
     int white_color_reader= 0;
+
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
     for (int i = 0; i < image_heigth; i++) {
-        for (int j = 0; j < image_length; j++) {
-            if(img.data[i * image_length + j] == white_pixel) {
-                white_color_reader = j;
+        for (int j = 0; j < image_width; j++) {
+            if(img.data[i * image_step + j] == white_pixel) {
+                float white_color_side = j / image_width;
+                direction_controller(white_color_side);
+                
+                ROS_INFO("Direction status - j1:%d, j2%d", (int)white_color_side, (int)image_width);
             }
         }
     }
 
-    float white_color_relation = white_color_reader / image_length;
-
+    void direction_controller(int white_color_side)
+    {
+        if(white_color_side < 7/2)
+        {
+            drive_robot(0.5, -0.5);
+            break;
+        } else if (image_length/ i < 7/5)
+        {
+            drive_robot(0.5, 0);
+            break;
+        } else {
+             drive_robot(0.5, 0.5);
+            break;
+        }
+    }
     
-    ROS_INFO("Direction status - j1:%d, j2%d", (int)direction_setter, (int)image_length);
-    
-        // if (white_detetected) {
-        //     if(image_length / i < 7/2)
-        //     {
-        //         drive_direction = left;
-        //         break;
-        //     } else if (image_length/ i < 7/5)
-        //     {
-        //         drive_direction = forward;    
-        //         break;
-        //     } else {
-        //         drive_direction = rigth;
-        //         break;
-        //     }
-        // }
-        
-    // switch(drive_direction)
-    //     {
-    //         case stop  : drive_robot(0, 0);   break;
-    //         case left  : drive_robot(0.5, -0.5);   break;
-    //         case forward : drive_robot(0.5, 0); break;
-    //         case rigth : drive_robot(0.5, 0.5);  break;
-    //     }
 }
 
 int main(int argc, char** argv)
