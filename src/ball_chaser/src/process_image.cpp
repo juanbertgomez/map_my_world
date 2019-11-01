@@ -22,7 +22,7 @@ void drive_robot(float lin_x, float ang_z)
     
 }
 
-void direction_controller(int white_color_side)
+void direction_controller(float white_color_side)
 {
     if(white_color_side < 7/2)
     {
@@ -43,23 +43,25 @@ void process_image_callback(const sensor_msgs::Image img)
     int image_step = img.step;
     int image_width = img.width;
     int image_heigth = img.height;
-    int rgb_channels =3;
+    int rgb_channels = 3;
     bool ball_found = false;
 
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
-    for(int j = 0; j < image_heigth; j++ && !ball_found) {
-        for (int i = 0; i < image_step; i+=rgb_channels && !ball_found) {
-        
-            bool red_channel_white = img.data[i] == white_pixel;
-            bool green_channel_white = img.data[i+1] == white_pixel;
-            bool blue_channel_white = img.data[i+2] == white_pixel;
+    for (int i = 0; i < image_step; i+=rgb_channels && ball_found==false) {
+        for(int row = 0; row < image_heigth; row++ && ball_found==false) {
+            int index = row * image_step + i;
+
+            bool red_channel_white = img.data[index] == white_pixel;
+            bool green_channel_white = img.data[index+1] == white_pixel;
+            bool blue_channel_white = img.data[index+2] == white_pixel;
 
             if(red_channel_white && green_channel_white && blue_channel_white) {
-                direction_controller(i);
                 ball_found = true;
+                float white_color_side = i / image_step;
+                direction_controller(white_color_side);
             } 
         }
     }
