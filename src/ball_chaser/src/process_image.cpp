@@ -24,14 +24,17 @@ void drive_robot(float lin_x, float ang_z)
 
 void direction_controller(float white_color_side)
 {
-    if(white_color_side < 7/2)
+    if(white_color_side < 2/7)
     {
-        drive_robot(0.5, -0.5);
-    } else if (white_color_side < 7/5)
+        ROS_INFO("Movel left");        
+        // drive_robot(0.5, -0.5);
+    } else if (white_color_side < 5/7)
     {
-        drive_robot(0.5, 0);
+        ROS_INFO("Movel forward");
+        // drive_robot(0.5, 0);
     } else {
-        drive_robot(0.5, 0.5);
+        ROS_INFO("Movel right");
+        // drive_robot(0.5, 0.5);
     }
 }
 
@@ -50,8 +53,8 @@ void process_image_callback(const sensor_msgs::Image img)
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
-    for (int i = 0; i < image_step; i+=rgb_channels && ball_found==false) {
-        for(int row = 0; row < image_heigth; row++ && ball_found==false) {
+    for (int i = 0; i < image_step && !ball_found; i+=rgb_channels) {
+        for(int row = 0; row < image_heigth && !ball_found; row++) {
             int index = row * image_step + i;
 
             bool red_channel_white = img.data[index] == white_pixel;
@@ -60,10 +63,16 @@ void process_image_callback(const sensor_msgs::Image img)
 
             if(red_channel_white && green_channel_white && blue_channel_white) {
                 ball_found = true;
-                float white_color_side = i / image_step;
+                float white_color_side = i / (double)image_step;
+                ROS_INFO("I value - %d, white side - %1.2f", (int)i, (float)white_color_side);
                 direction_controller(white_color_side);
             } 
         }
+    }
+
+    if(!ball_found) 
+    {
+        ROS_INFO("STOP!!");
     }
 }    
 
