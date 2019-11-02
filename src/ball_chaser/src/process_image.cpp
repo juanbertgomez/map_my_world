@@ -24,17 +24,17 @@ void drive_robot(float lin_x, float ang_z)
 
 void direction_controller(float white_color_side)
 {
-    if(white_color_side < 2/7)
+    if(white_color_side < 2/(double)7)
     {
         ROS_INFO("Movel left");        
-        // drive_robot(0.5, -0.5);
-    } else if (white_color_side < 5/7)
+        drive_robot(0.5, 0.5);
+    } else if (white_color_side < 5/(double)7)
     {
         ROS_INFO("Movel forward");
-        // drive_robot(0.5, 0);
+        drive_robot(0.5, 0);
     } else {
         ROS_INFO("Movel right");
-        // drive_robot(0.5, 0.5);
+        drive_robot(0.5, -0.5);
     }
 }
 
@@ -73,6 +73,7 @@ void process_image_callback(const sensor_msgs::Image img)
     if(!ball_found) 
     {
         ROS_INFO("STOP!!");
+        drive_robot(0, 0);
     }
 }    
 
