@@ -22,17 +22,17 @@ Lo move the robot:
 #### The gazebo world 
 (with the robot in the middle)
 
-![alt text](assets/gazebo_world.png)
+![](assets/gazebo_world.png)
 
 ---
 
 #### Before moving the robot:
 
-![alt text](assets/before_moving.png)
+![](assets/before_moving.png)
 
 --- 
 ### After moving the robot:
-![alt text](assets/after_moving.png)
+![](assets/after_moving.png)
 
 
 In the two images above we can see how the particles converge to where the robot is localized after moving it. The model clearly is discarding the inaccurate once.
