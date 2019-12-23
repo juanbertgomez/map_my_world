@@ -150,45 +150,47 @@
   </joint>
 
   <!-- camera -->
-  <link name="camera">
-    <inertia>
+    <link name="camera">
+    <inertial>
       <mass value="0.1"/>
-      <origin xyz="0.05 0.05 0.05" rpy="0 0 0"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
       <inertia
           ixx="1e-6" ixy="0" ixz="0"
           iyy="1e-6" iyz="0"
           izz="1e-6"
       />
-    </inertia>
+    </inertial>
 
-    <collision name='camera_collision'>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+    <collision name='collision'>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <box size="0.05 0.05 0.05"/>
       </geometry>
     </collision>
 
     <visual name='camera_visual'>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <box size="0.05 0.05 0.05"/>
       </geometry>
     </visual>
   </link>
-  <!-- joint camera -->
+
   <joint type="fixed" name="camera_joint">
-    <origin xyz="0.2 0 0" rpy="0 0 0"/>
+    <origin xyz="0.35 0 0" rpy="0 0 0"/>
     <child link="camera"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
   </joint>
+  
+  <link name="camera_rgbd_frame"></link>
 
-  <link name="camera_link_optical"></link>
-
-  <joint name="camera_optical_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+  <joint name="camera_rgbd_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-${pi/2} 0 -${pi/2}"/>
     <parent link="camera"/>
-    <child link="camera_link_optical"/>
+    <child link="camera_rgbd_frame"/>
   </joint>
 
   <!-- hoyuko -->
