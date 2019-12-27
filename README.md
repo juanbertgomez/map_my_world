@@ -17,23 +17,11 @@ Lo move the robot:
 
 ---
 
-### Images of the Gazebo and Rviz with the Robot:
+### Images of the rtab mapping:
 
-#### The gazebo world 
-(with the robot in the middle)
-
-![](assets/gazebo_world.png)
+![](assets/path_mapping.png)
 
 ---
 
-#### Before moving the robot:
-
-![](assets/before_moving.png)
-
---- 
-### After moving the robot:
-![](assets/after_moving.png)
-
-
-In the two images above we can see how the particles converge to where the robot is localized after moving it. The model clearly is discarding the inaccurate once.
+The mapping data base is under `assets/rtabmap.db`
 
