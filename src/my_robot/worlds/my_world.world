@@ -619,5 +619,9 @@
       </link>
       <static>1</static>
     </model>
+    <include>
+      <uri>model://carrucha</uri>
+      <pose>5 5 0 0 0 0</pose>
+    </include>
   </world>
 </sdf>

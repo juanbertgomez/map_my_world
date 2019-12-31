@@ -177,7 +177,7 @@
   </link>
 
   <joint type="fixed" name="camera_joint">
-    <origin xyz="0.35 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <child link="camera"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -186,7 +186,7 @@
   </joint>
   
   <joint name="camera_rgbd_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-${pi/2} 0 -${pi/2}"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="camera"/>
     <child link="camera_rgbd_frame"/>
   </joint>
