@@ -619,9 +619,37 @@
       </link>
       <static>1</static>
     </model>
-    <include>
-      <uri>model://carrucha</uri>
-      <pose>5 5 0 0 0 0</pose>
-    </include>
+    <population name="can_population1">
+      <model name="can1">
+        <include>
+          <static>true</static>
+          <uri>model://coke_can</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>20 20 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <population name="table_population1">
+      <model name="table1">
+        <include>
+          <static>true</static>
+          <uri>model://cafe_table</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>20 20 0.01</size>
+      </box>
+      <model_count>5</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
   </world>
 </sdf>
